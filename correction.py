@@ -1,6 +1,9 @@
+import json
+
 def auto_correction(text):
     # Define replacements
-    replacements = {"Tanslor": "Transfer", "HANK": "BANK"}
+    with open('correction.json') as f:
+        replacements = json.load(f)
 
     # Perform autocorrection
     for original, replacement in replacements.items():

@@ -3,7 +3,7 @@ services:
   fastapi-ocr:
     build: .
     ports:
-      - "8081:8081"
+      - 8001:8001
     restart: unless-stopped
     volumes:
       - .:/app

@@ -22,7 +22,7 @@ COPY . .
 RUN chmod -R 777 ./
 
 # Expose port yang digunakan oleh FastAPI
-EXPOSE 8081
+EXPOSE 8001
 
 # Perintah untuk menjalankan aplikasi FastAPI
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8081", "--reload"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001", "--reload"]
