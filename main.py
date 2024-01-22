@@ -1,7 +1,7 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException, Body, Path
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from ocr import get_text, generate_transacrion
+from ocr import get_text, process_text
 import json
 from correction import auto_correction
 
@@ -32,16 +32,13 @@ def read_root():
 @app.post("/upload/")
 async def create_upload_file(file: UploadFile = File(...)):
     try:
-        print(file.content_type)
-        # ocr_result = get_text(file)
+        ocr_result = get_text(file)
         
+        correction = auto_correction(ocr_result)
 
-        # correction = auto_correction(ocr_result)
-        
-        # responses = generate_transacrion(ocr_result)
+        responses = process_text(correction)
 
-        # return JSONResponse(content={'text': correction, 'result': responses}, status_code=200)
-        return JSONResponse(content={'result': 'true'}, status_code=200)
+        return JSONResponse(content={'text': correction, 'length': len(responses), 'result': responses}, status_code=200)
 
     except Exception as e:
         # Log the exception for debugging purposes
